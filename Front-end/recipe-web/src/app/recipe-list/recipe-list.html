@@ -1,0 +1,159 @@
+<section class="recipes-page">
+	<div class="recipes-container">
+		<!-- Hero / Header Section -->
+		<header class="recipes-hero">
+			<div class="hero-content">
+				<span class="hero-badge">Discover & Cook</span>
+				<h1 class="hero-title">Delicious Recipes For Every Craving</h1>
+				<p class="hero-subtitle">
+					Explore hand-crafted culinary recipes, filter by your favorite course, or search for specific ingredients.
+				</p>
+			</div>
+
+			<div class="hero-action">
+				<button type="button" class="btn-create" (click)="createNewRecipe()">
+					<span class="btn-icon" aria-hidden="true">+</span>
+					<span>New Recipe</span>
+				</button>
+			</div>
+		</header>
+
+		<!-- Search & Filter Controls -->
+		<div class="controls-card">
+			<!-- Search Bar -->
+			<div class="search-box">
+				<span class="search-icon" aria-hidden="true">&#128269;</span>
+				<input
+					type="text"
+					class="search-input"
+					[(ngModel)]="searchTerm"
+					(ngModelChange)="onSearchChange()"
+					placeholder="Search recipes, ingredients, keywords..."
+					aria-label="Search recipes"
+				/>
+				<button
+					*ngIf="searchTerm"
+					type="button"
+					class="btn-clear-search"
+					(click)="searchTerm = ''; onSearchChange()"
+					aria-label="Clear search input"
+				>
+					&times;
+				</button>
+			</div>
+
+			<!-- Category Pills -->
+			<div class="category-filters" role="tablist" aria-label="Recipe categories">
+				<button
+					*ngFor="let cat of categories"
+					type="button"
+					class="category-pill"
+					[class.category-pill--active]="selectedCategory === cat"
+					(click)="filterByCategory(cat)"
+				>
+					{{ cat }}
+				</button>
+			</div>
+		</div>
+
+		<!-- Status & Results Count Bar -->
+		<div class="results-meta">
+			<span class="results-count">
+				Showing <strong>{{ filteredRecipes.length }}</strong> {{ filteredRecipes.length === 1 ? 'recipe' : 'recipes' }}
+				<span *ngIf="selectedCategory !== 'All'"> in <strong>{{ selectedCategory }}</strong></span>
+				<span *ngIf="searchTerm"> matching "<em>{{ searchTerm }}</em>"</span>
+			</span>
+
+			<button
+				*ngIf="selectedCategory !== 'All' || searchTerm"
+				type="button"
+				class="btn-reset-filters"
+				(click)="clearFilters()"
+			>
+				Reset filters
+			</button>
+		</div>
+
+		<p *ngIf="errorMessage" class="request-message request-message--error" role="alert">
+			{{ errorMessage }}
+			<button type="button" (click)="loadRecipes()">Try again</button>
+		</p>
+
+		<p *ngIf="loading" class="request-message" aria-live="polite">Loading recipes...</p>
+
+		<!-- Empty State -->
+		<div *ngIf="!loading && !errorMessage && filteredRecipes.length === 0" class="empty-state">
+			<div class="empty-state__icon" aria-hidden="true">&#127859;</div>
+			<h2>No recipes found</h2>
+			<p>We couldn't find any recipes matching your current filters. Try searching for something else or clearing the search.</p>
+			<button type="button" class="btn-reset" (click)="clearFilters()">
+				Show All Recipes
+			</button>
+		</div>
+
+		<!-- Recipe Grid -->
+		<div *ngIf="!loading && filteredRecipes.length > 0" class="recipe-grid">
+			<article
+				*ngFor="let recipe of filteredRecipes"
+				class="recipe-card"
+				(click)="openRecipeDetail(recipe)"
+				tabindex="0"
+				(keydown.enter)="openRecipeDetail(recipe)"
+			>
+				<!-- Recipe Card Image Banner -->
+				<div class="recipe-card__image">
+					<img
+						*ngIf="recipe.imageUrl"
+						[src]="recipe.imageUrl"
+						[alt]="recipe.title"
+						loading="lazy"
+					/>
+					<span *ngIf="!recipe.imageUrl" class="image-fallback">
+						{{ recipe.title.charAt(0) }}
+					</span>
+
+					<span class="category-badge">{{ recipe.category }}</span>
+
+					<button
+						type="button"
+						class="btn-favorite"
+						[class.btn-favorite--active]="recipe.isFavorite"
+						(click)="toggleFavorite($event, recipe)"
+						[attr.aria-label]="recipe.isFavorite ? 'Remove from favorites' : 'Add to favorites'"
+					>
+						<span aria-hidden="true">{{ recipe.isFavorite ? '&#9829;' : '&#9825;' }}</span>
+					</button>
+				</div>
+
+				<!-- Recipe Card Content -->
+				<div class="recipe-card__body">
+					<div>
+						<div class="recipe-card__tags" *ngIf="recipe.prepTime || recipe.cookTime">
+							<span class="time-tag" *ngIf="recipe.prepTime">
+								&#9201; Prep: {{ recipe.prepTime }}
+							</span>
+							<span class="time-tag" *ngIf="recipe.cookTime">
+								&#128293; Cook: {{ recipe.cookTime }}
+							</span>
+						</div>
+
+						<h2 class="recipe-card__title">{{ recipe.title }}</h2>
+						<p class="recipe-card__desc">{{ recipe.description }}</p>
+					</div>
+
+					<div class="recipe-card__footer">
+						<div class="recipe-meta-author" *ngIf="recipe.author">
+							<span class="author-label">By</span>
+							<span class="author-name">{{ recipe.author }}</span>
+						</div>
+						<div class="ingredients-count">
+							<span class="ing-badge">&#129367; {{ recipe.ingredients.length }} items</span>
+						</div>
+						<span class="view-details-arrow" aria-hidden="true">&#8594;</span>
+					</div>
+				</div>
+			</article>
+		</div>
+	</div>
+</section>
+

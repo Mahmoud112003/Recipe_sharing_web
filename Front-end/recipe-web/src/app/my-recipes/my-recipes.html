@@ -1,0 +1,43 @@
+<section class="recipes-page">
+	<div class="recipes-panel">
+		<div class="recipes-toolbar">
+			<h1>My recipes</h1>
+			<button type="button" class="new-recipe-button" (click)="createNewRecipe()">
+				<span aria-hidden="true">+</span>
+				New recipe
+			</button>
+		</div>
+
+		<div *ngIf="recipes.length === 0" class="empty-state">
+			<div class="empty-state__icon" aria-hidden="true">&#128214;</div>
+			<h2>No recipes added yet</h2>
+			<p>Start sharing your delicious culinary creations with the Recipy community!</p>
+			<button type="button" class="create-button" (click)="createNewRecipe()">
+				Create Your First Recipe
+			</button>
+		</div>
+
+		<div *ngIf="recipes.length > 0" class="recipe-grid">
+			<article *ngFor="let recipe of recipes" class="recipe-card" (click)="openRecipeDetail(recipe)">
+				<div class="recipe-card__image">
+					<img *ngIf="recipe.imageUrl" [src]="recipe.imageUrl" [alt]="recipe.title" />
+					<span *ngIf="!recipe.imageUrl">{{ recipe.title.charAt(0) }}</span>
+					<span class="category-badge">{{ recipe.category }}</span>
+				</div>
+
+				<div class="recipe-card__body">
+					<div>
+						<h2>{{ recipe.title }}</h2>
+						<p>{{ recipe.description }}</p>
+					</div>
+					<div class="recipe-card__footer">
+						<span>{{ recipe.ingredients.length }} ingredients</span>
+						<div class="card-actions">
+							<button type="button" class="card-actions__delete" (click)="deleteRecipe($event, recipe)">Delete</button>
+						</div>
+					</div>
+				</div>
+			</article>
+		</div>
+	</div>
+</section>

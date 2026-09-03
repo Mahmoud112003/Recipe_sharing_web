@@ -1,0 +1,14 @@
+# Dependencies and generated output
+**/node_modules/
+**/dist/
+**/.angular/cache/
+**/coverage/
+**/.git-local-backup/
+
+# Local configuration and secrets
+back-end/config.env
+**/.env
+
+# Logs and local editor files
+**/npm-debug.log*
+.vscode/

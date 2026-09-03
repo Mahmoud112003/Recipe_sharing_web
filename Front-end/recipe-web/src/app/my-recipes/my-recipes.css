@@ -1,0 +1,242 @@
+:host {
+	display: block;
+}
+
+.recipes-page {
+	min-height: calc(100vh - 4rem);
+	padding: 2rem 1rem;
+	background: #f8fafc;
+}
+
+.recipes-panel {
+	max-width: 56rem;
+	margin: 0 auto;
+	padding: 1.5rem;
+	border: 1px solid #e2e8f0;
+	border-radius: 1.5rem;
+	background: white;
+	box-shadow: 0 8px 24px rgba(15, 23, 42, 0.07);
+}
+
+.recipes-toolbar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	padding-bottom: 1.5rem;
+	border-bottom: 1px solid #f1f5f9;
+}
+
+h1,
+h2,
+p {
+	margin: 0;
+}
+
+h1 {
+	color: #0f172a;
+	font-size: clamp(1.5rem, 4vw, 1.875rem);
+	font-weight: 800;
+}
+
+.new-recipe-button,
+.create-button {
+	border: 0;
+	border-radius: 0.75rem;
+	color: white;
+	cursor: pointer;
+	font: inherit;
+	font-size: 0.75rem;
+	font-weight: 700;
+}
+
+.new-recipe-button {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0.7rem 1rem;
+	background: #0f172a;
+}
+
+.new-recipe-button:hover {
+	background: #e11d48;
+}
+
+.empty-state {
+	padding: 3rem 1rem;
+	text-align: center;
+}
+
+.empty-state__icon {
+	display: grid;
+	width: 4rem;
+	height: 4rem;
+	margin: 0 auto 0.75rem;
+	place-items: center;
+	border-radius: 1rem;
+	background: #fff1f2;
+	font-size: 1.75rem;
+}
+
+h2 {
+	color: #1e293b;
+	font-size: 1.125rem;
+	font-weight: 800;
+}
+
+.empty-state p {
+	max-width: 24rem;
+	margin: 0.35rem auto 1.25rem;
+	color: #64748b;
+	font-size: 0.75rem;
+	line-height: 1.5;
+}
+
+.create-button {
+	padding: 0.7rem 1.25rem;
+	background: #e11d48;
+	box-shadow: 0 5px 12px rgba(225, 29, 72, 0.2);
+}
+
+.create-button:hover {
+	background: #be123c;
+}
+
+.recipe-grid {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 1.5rem;
+	padding-top: 1.5rem;
+}
+
+.recipe-card {
+	display: flex;
+	min-width: 0;
+	flex-direction: column;
+	overflow: hidden;
+	border: 1px solid #e2e8f0;
+	border-radius: 1.5rem;
+	background: white;
+	box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+	cursor: pointer;
+	transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.recipe-card:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 12px 24px rgba(15, 23, 42, 0.1);
+}
+
+.recipe-card__image {
+	position: relative;
+	display: grid;
+	height: 11rem;
+	place-items: center;
+	background: #fef3c7;
+	color: #94a3b8;
+	font-size: 2.5rem;
+	font-weight: 800;
+}
+
+.recipe-card__image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.category-badge {
+	position: absolute;
+	bottom: 0.75rem;
+	left: 0.75rem;
+	border-radius: 999px;
+	padding: 0.3rem 0.75rem;
+	background: rgba(255, 255, 255, 0.92);
+	color: #1e293b;
+	font-size: 0.7rem;
+	font-weight: 700;
+}
+
+.recipe-card__body {
+	display: flex;
+	min-height: 9rem;
+	flex: 1;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 1.25rem;
+}
+
+.recipe-card h2 {
+	color: #0f172a;
+	font-size: 1.2rem;
+	font-weight: 800;
+}
+
+.recipe-card__body p {
+	display: -webkit-box;
+	overflow: hidden;
+	margin-top: 0.4rem;
+	color: #64748b;
+	font-size: 0.8rem;
+	line-height: 1.5;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+}
+
+.recipe-card__footer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem;
+	margin-top: 1rem;
+	padding-top: 0.75rem;
+	border-top: 1px solid #f1f5f9;
+	color: #94a3b8;
+	font-size: 0.7rem;
+	font-weight: 600;
+}
+
+.card-actions {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.card-actions button {
+	border: 0;
+	padding: 0.25rem;
+	background: transparent;
+	color: #94a3b8;
+	cursor: pointer;
+	font: inherit;
+	font-weight: 700;
+}
+
+.card-actions button:hover {
+	color: #e11d48;
+}
+
+.card-actions .card-actions__delete:hover {
+	color: #dc2626;
+}
+
+@media (max-width: 30rem) {
+	.recipes-panel {
+		padding: 1rem;
+		border-radius: 1rem;
+	}
+
+	.recipes-toolbar {
+		align-items: flex-start;
+		flex-direction: column;
+	}
+
+	.recipe-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media (min-width: 31rem) and (max-width: 60rem) {
+	.recipe-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}

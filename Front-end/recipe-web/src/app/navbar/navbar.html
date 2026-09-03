@@ -1,0 +1,29 @@
+<header class="navbar">
+	<div class="navbar__inner">
+		<a routerLink="/recipes" class="brand" aria-label="Recipy home">
+			<span class="brand__mark">R</span>
+			<span class="brand__name">recipy</span>
+		</a>
+
+		<nav class="nav-links" aria-label="Main navigation">
+			<a
+				routerLink="/recipes"
+				routerLinkActive="nav-links__link--active"
+				[routerLinkActiveOptions]="{ exact: true }"
+				class="nav-links__link"
+			>Recipes</a>
+			<a
+				routerLink="/my-recipes"
+				routerLinkActive="nav-links__link--active"
+				class="nav-links__link"
+			>My Recipes</a>
+		</nav>
+
+		<a routerLink="/profile" class="user-profile" aria-label="Open user profile">
+			<span class="user-profile__avatar">
+				<img *ngIf="userImageUrl" [src]="userImageUrl" [alt]="userName" />
+				<span *ngIf="!userImageUrl">{{ userName.charAt(0).toUpperCase() }}</span>
+			</span>
+		</a>
+	</div>
+</header>
