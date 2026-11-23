@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 export class UserServices {
 
   private readonly http = inject(HttpClient);
-  private readonly apiurl = 'http://localhost:3000';
+  private readonly apiurl = 'https://recipe-sharing-api-alpha.vercel.app';
 
   register(user: UserModel) {
     return this.http.post<any>(`${this.apiurl}/auth/registration`, user);
