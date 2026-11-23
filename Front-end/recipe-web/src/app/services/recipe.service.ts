@@ -11,7 +11,7 @@ export type { Recipe } from '../models/recipe-model/recipe-model-module';
 })
 export class RecipeService {
 
-  private apiUrl = 'http://localhost:3000/recipes';
+  private apiUrl = 'https://recipe-sharing-api-alpha.vercel.app/recipes';
 
   constructor(private http: HttpClient) {}
 
