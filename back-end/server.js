@@ -15,10 +15,22 @@ const cors = require("cors")
 const app = express();
 
 app.use(cors({
-    origin: "http://localhost:4200"
+    origin: process.env.FRONTEND_URL || "http://localhost:4200"
 }))
 
-connectDB();
+let databaseReady;
+app.use(async (req, res, next) => {
+    try {
+        if (!databaseReady) databaseReady = connectDB().catch((error) => {
+            databaseReady = undefined;
+            throw error;
+        });
+        await databaseReady;
+        next();
+    } catch (error) {
+        next(error);
+    }
+});
 
 app.use(express.json());
 
@@ -46,6 +58,10 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+    });
+}
+
+module.exports = app;
