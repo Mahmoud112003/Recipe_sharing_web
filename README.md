@@ -2,6 +2,10 @@
 
 A recipe-sharing application with an Angular frontend and an Express/MongoDB backend.
 
+## Live Demo
+
+[Open the live demo](https://recipe-sharing-demo-eight.vercel.app/)
+
 ## Project Structure
 
 - `Front-end/recipe-web`: Angular application
